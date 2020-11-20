@@ -1,4 +1,3 @@
-# Programs runs 9/17/2020. If the front-end of instagram changes, this script might not work.
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,19 +10,12 @@ from time import sleep
 
 #install chrome driver and move the .exe file to PATH location below
 PATH = 'C:\Program Files (x86)\Google\Chrome\chromedriver.exe'
-#----------------------------------------------------------------------------------------------------------------------
-# Please type your username/phone number/email and your password within the quotation marks.
-
-username = "4082012225"
-password = "Az@12101004"
-# Run the script :) enjoy
-#----------------------------------------------------------------------------------------------------------------------
 
 class InstaAnalyzer:
     # Storing the chrome webdriver, username and password within self
     def __init__(self, username, password):
         self.driver = webdriver.Chrome(PATH)
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 30)
         self.username = username
         self.password = password
 
@@ -64,7 +56,7 @@ class InstaAnalyzer:
             (By.XPATH, '//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img'))).click()
 
         profile_button = self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div/div[2]/div[2]/a[1]/div'))).click()
+            (By.XPATH, '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/a[1]/div/div[2]/div/div/div/div'))).click()
 
         # Getting the list of usernames from following
         following_button = self.wait.until(EC.presence_of_element_located(
@@ -85,7 +77,8 @@ class InstaAnalyzer:
     # Navigating through the follower and following boxes and returning a list full of usernames
     def get_usernames(self):
 
-        username_box = self.wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[4]/div/div/div[2]")))
+        username_box = self.wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[5]/div/div/div[2]")))
+
 
         # initialize scroll height
         last_height = 0
@@ -109,7 +102,7 @@ class InstaAnalyzer:
         sleep(2)
 
         # Clicking the exit button
-        exit_box = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[1]/div/div[2]/button').click()
+        exit_box = self.driver.find_element_by_xpath('/html/body/div[5]/div/div/div[1]/div/div[2]/button').click()
 
         return usernames
 
